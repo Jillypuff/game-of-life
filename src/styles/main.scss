@@ -1,46 +1,60 @@
-@use "breakpoint.scss";
+@use "breakpoints.scss";
 @use "colors.scss";
 @use "effects.scss";
 @use "typography.scss";
 
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 .site-layout {
-  width: 100%;
-  max-width: 960px;
-  margin-inline: auto;
-
-  padding: 1rem;
-
-  background-color: var(--dark-bg);
-  color: var(--color-text);
-
-  font-family: $font-primary;
-
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(font-primary);
   transition: background-color transition(base), color transition(base);
 
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow-x: hidden;
+  width: 100%;
 
-  h1,
-  h2,
-  h3 {
-    font-family: $font-heading;
-    font-weight: $font-weight-bold;
-    line-height: $line-height-tight;
+  header {
+    background-image: linear-gradient(to bottom, var(--bg-light), var(--bg));
+  }
+  footer {
+    background-image: linear-gradient(to top, var(--bg-light), var(--bg));
   }
 
   main {
     flex: 1;
   }
+}
 
-  @include breakpoints.respond-up(md) {
+.content-wrapper {
+  width: 100%;
+  max-width: 576px;
+  margin-inline: auto;
+
+  overflow-wrap: break-word;
+}
+
+@include breakpoints.respond-up(md) {
+  .content-wrapper {
     max-width: 720px;
-    padding: 1.5rem;
+    padding: 1rem;
   }
+}
 
-  @include breakpoints.respond-up(lg) {
-    max-width: 960px;
-    padding: 2rem;
+@include breakpoints.respond-up(lg) {
+  .content-wrapper {
+    max-width: 1024px;
+    padding: 1rem;
   }
 }

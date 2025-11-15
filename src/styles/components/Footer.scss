@@ -1,0 +1,11 @@
+@use "@styles/typography.scss" as t;
+
+.footer {
+  font-weight: t.font-weight(light);
+  letter-spacing: t.letter-spacing(wide);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1em;
+  padding: 0.5rem 0;
+}

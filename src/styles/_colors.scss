@@ -36,7 +36,7 @@ $themes: (
 );
 
 @mixin theme-colors($theme-name) {
-  @each $key, $value in map-get($themes, $theme-name) {
+  @each $key, $value in map.get($themes, $theme-name) {
     --#{$key}: #{$value};
   }
 }
@@ -48,6 +48,8 @@ $themes: (
 :root[data-theme="dark"] {
   @include theme-colors(dark);
 }
+
+$reference-colors: map.keys(map.get($themes, dark));
 
 @each $theme-name, $theme-colors in $themes {
   $theme-color-names: map.keys($theme-colors);

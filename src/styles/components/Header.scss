@@ -1,0 +1,26 @@
+@use "@styles/typography.scss" as t;
+
+.header {
+  font-size: t.font-size(lg);
+  font-weight: t.font-weight(medium);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1em;
+  padding: 0.5rem 0;
+}
+
+.title {
+  flex-grow: 1;
+  font-size: t.font-size(xl);
+  font-weight: t.font-weight(bold);
+}
+
+.navigation {
+  ul {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    gap: 10px;
+  }
+}

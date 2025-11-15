@@ -46,5 +46,5 @@ $letter-spacings: (
 }
 
 @function letter-spacing($key) {
-  @return map.get($letter-spacing, $key);
+  @return map.get($letter-spacings, $key);
 }

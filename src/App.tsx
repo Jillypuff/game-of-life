@@ -1,9 +1,14 @@
 import { Outlet } from "react-router-dom"
+import "@styles/main.scss"
 
 const App = () => {
   return (
-    <div>
-      <Outlet />
+    <div className="site-layout">
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
     </div>
   )
 }

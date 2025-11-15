@@ -1,0 +1,46 @@
+@use "breakpoint.scss";
+@use "colors.scss";
+@use "effects.scss";
+@use "typography.scss";
+
+.site-layout {
+  width: 100%;
+  max-width: 960px;
+  margin-inline: auto;
+
+  padding: 1rem;
+
+  background-color: var(--dark-bg);
+  color: var(--color-text);
+
+  font-family: $font-primary;
+
+  transition: background-color transition(base), color transition(base);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  h1,
+  h2,
+  h3 {
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  @include breakpoints.respond-up(md) {
+    max-width: 720px;
+    padding: 1.5rem;
+  }
+
+  @include breakpoints.respond-up(lg) {
+    max-width: 960px;
+    padding: 2rem;
+  }
+}

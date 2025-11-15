@@ -1,0 +1,16 @@
+@use "sass:map";
+
+$transitions: (
+  fast: 150ms ease-in-out,
+  base: 200ms ease-in-out,
+  slow: 300ms ease-in-out,
+);
+
+@function transition($speed) {
+  @if map-has-key($transitions, $speed) {
+    @return map-get($transitions, $speed);
+  }
+
+  @warn "Unknown transition speed `#{$speed}`. Using base.";
+  @return map-get($transitions, base);
+}

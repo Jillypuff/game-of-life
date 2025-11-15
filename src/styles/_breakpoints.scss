@@ -1,0 +1,38 @@
+@use "sass:map";
+
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 1024px,
+);
+
+@mixin respond-up($breakpoint) {
+  $value: map.get($breakpoints, $breakpoint);
+
+  @if $value {
+    @media (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @error "Breakpoint '#{$breakpoint}' not found in $breakpoints map. Valid keys are: #{map.keys($breakpoints)}";
+  }
+}
+
+@mixin mobile-only {
+  $max-mobile: map.get($breakpoints, sm) - 0.02px;
+  @media (max-width: $max-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @include respond-up(md) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @include respond-up(lg) {
+    @content;
+  }
+}

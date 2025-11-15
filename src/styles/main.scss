@@ -1,7 +1,7 @@
 @use "breakpoints.scss";
 @use "colors.scss";
 @use "effects.scss";
-@use "typography.scss";
+@use "typography.scss" as t;
 
 html,
 body {
@@ -17,7 +17,7 @@ body {
 .site-layout {
   background-color: var(--bg);
   color: var(--text);
-  font-family: var(font-primary);
+  font-family: t.$font-mono;
   transition: background-color transition(base), color transition(base);
 
   display: flex;

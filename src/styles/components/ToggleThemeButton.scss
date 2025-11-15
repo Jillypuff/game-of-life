@@ -1,0 +1,20 @@
+@use "@styles/colors.scss";
+
+.button {
+  width: 30px;
+  height: 30px;
+  background-color: var(--bg);
+  border-radius: 50%;
+  border: 1px solid var(--border-muted);
+  padding: 0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--bg-dark);
+    border-color: var(--border);
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

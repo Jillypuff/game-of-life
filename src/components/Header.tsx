@@ -1,3 +1,4 @@
+import ToggleThemeButton from "./ToggleThemeButton"
 import "@styles/components/Header.scss"
 
 const title = "Game of life"
@@ -21,6 +22,9 @@ const Header = () => {
         </ul>
       </div>
       <div className="profile">{profilePlaceholder}</div>
+      <div>
+        <ToggleThemeButton />
+      </div>
     </div>
   )
 }

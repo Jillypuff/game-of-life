@@ -1,6 +1,7 @@
 import ToggleThemeButton from "./ToggleThemeButton"
 import "@styles/components/Header.scss"
 
+// @Text
 const title = "Game of life"
 const links = {
   home: "Home",

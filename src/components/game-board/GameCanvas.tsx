@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react"
-import type { Viewport } from "@models/game-board.ts"
+import type { Viewport } from "@models/game-board"
 import "@styles/components/game-board/GameCanvas.scss"
 
 interface GameCanvasProps {
@@ -10,6 +10,7 @@ interface GameCanvasProps {
   onPointerDown: (e: React.PointerEvent<HTMLCanvasElement>) => void
   onPointerMove: (e: React.PointerEvent<HTMLCanvasElement>) => void
   onPointerUp: (e: React.PointerEvent<HTMLCanvasElement>) => void
+  onWheel: (e: React.WheelEvent<HTMLCanvasElement>) => void
 }
 
 const keyToCoord = (key: string): [number, number] => {
@@ -25,6 +26,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({
   onPointerDown,
   onPointerMove,
   onPointerUp,
+  onWheel,
 }: GameCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const { xOffset, yOffset, cellSize } = viewport
@@ -85,6 +87,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
+      onWheel={onWheel}
     />
   )
 }

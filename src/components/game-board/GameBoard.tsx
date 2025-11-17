@@ -2,6 +2,7 @@ import { useState } from "react"
 import GameCanvas from "./GameCanvas"
 import ZoomControls from "./ZoomControls"
 import { usePan } from "../../hooks/usePan"
+import { useZoomOnScroll } from "./useZoomOnScroll"
 import type { Viewport } from "@models/game-board"
 import "@styles/components/game-board/GameBoard.scss"
 
@@ -26,6 +27,7 @@ const GameBoard = () => {
   })
 
   const panHandlers = usePan(viewport, setViewport)
+  const zoomHandlers = useZoomOnScroll(setViewport)
 
   const advanceGeneration = () => {
     console.log("Let's go forward")
@@ -39,6 +41,7 @@ const GameBoard = () => {
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
         {...panHandlers}
+        {...zoomHandlers}
       />
       <div>
         <ZoomControls

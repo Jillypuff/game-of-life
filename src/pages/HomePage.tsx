@@ -1,7 +1,9 @@
+import GameBoard from "@components/game-board/GameBoard"
+
 const HomePage = () => {
   return (
     <div>
-      <h2>Home</h2>
+      <GameBoard />
     </div>
   )
 }

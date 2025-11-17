@@ -1,8 +1,8 @@
 import { useState } from "react"
 import GameCanvas from "./GameCanvas"
 import ZoomControls from "./ZoomControls"
-import { usePan } from "../../hooks/usePan"
-import { useZoomOnScroll } from "./useZoomOnScroll"
+import { usePan } from "@hooks/usePan"
+import { useZoomOnScroll } from "@hooks/useZoomOnScroll"
 import type { Viewport } from "@models/game-board"
 import "@styles/components/game-board/GameBoard.scss"
 

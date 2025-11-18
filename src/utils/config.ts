@@ -11,11 +11,11 @@ export const DEFAULT_VIEWPORT: Viewport = {
 
 export const BUTTON_MIN_ZOOM_SIZE = 5
 export const BUTTON_MAX_ZOOM_SIZE = 50
-export const BUTTON_ZOOM_STEP = 2
+export const BUTTON_ZOOM_STEP = 5
 
 export const SCROLL_MIN_ZOOM_SIZE = 5
 export const SCROLL_MAX_ZOOM_SIZE = 50
-export const SCROLL_ZOOM_STEP = 2
+export const SCROLL_ZOOM_STEP = 1
 
 export const MIN_OFFSET_X = -20
 export const MAX_OFFSET_X = 120

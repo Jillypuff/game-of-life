@@ -1,6 +1,6 @@
-import { useRef, useEffect, MouseEvent } from "react"
+import { useRef, MouseEvent } from "react"
+import { useCanvasDrawing } from "@hooks/useCanvasDrawing"
 import type { Viewport } from "@models/game-board"
-import { keyToCoord } from "@utils/converter"
 import "@styles/components/game-board/GameCanvas.scss"
 
 interface GameCanvasProps {
@@ -27,7 +27,13 @@ const GameCanvas: React.FC<GameCanvasProps> = ({
   onClickCell,
 }: GameCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const { xOffset, yOffset, cellSize } = viewport
+  useCanvasDrawing({
+    canvasRef,
+    liveCells,
+    viewport,
+    width,
+    height,
+  })
 
   const handleCanvasClick = (e: MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current
@@ -42,53 +48,6 @@ const GameCanvas: React.FC<GameCanvasProps> = ({
 
     onClickCell(cellX, cellY)
   }
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
-
-    ctx.clearRect(0, 0, width, height)
-    ctx.fillStyle = "#00CED1"
-
-    const startX = Math.floor(xOffset)
-    const startY = Math.floor(yOffset)
-    const endX = Math.ceil(xOffset + width / cellSize)
-    const endY = Math.ceil(yOffset + height / cellSize)
-
-    for (const key of liveCells) {
-      const [cellX, cellY] = keyToCoord(key)
-
-      if (cellX >= startX && cellX < endX && cellY >= startY && cellY < endY) {
-        const drawX = (cellX - xOffset) * cellSize
-        const drawY = (cellY - yOffset) * cellSize
-
-        ctx.fillRect(drawX, drawY, cellSize, cellSize)
-      }
-    }
-
-    if (cellSize >= 10) {
-      ctx.strokeStyle = "#333333"
-      ctx.lineWidth = 0.5
-
-      for (let i = startX; i <= endX; i++) {
-        const x = (i - xOffset) * cellSize
-        ctx.beginPath()
-        ctx.moveTo(x, 0)
-        ctx.lineTo(x, height)
-        ctx.stroke()
-      }
-      for (let j = startY; j <= endY; j++) {
-        const y = (j - yOffset) * cellSize
-        ctx.beginPath()
-        ctx.moveTo(0, y)
-        ctx.lineTo(width, y)
-        ctx.stroke()
-      }
-    }
-  }, [liveCells, viewport, width, height])
 
   return (
     <canvas

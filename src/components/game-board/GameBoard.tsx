@@ -1,30 +1,19 @@
-import { useState, useCallback } from "react"
+import { useState } from "react"
 import GameCanvas from "./GameCanvas"
 import ZoomControls from "./ZoomControls"
 import { usePan } from "@hooks/usePan"
-import { useZoomOnScroll } from "@hooks/useZoomOnScroll"
+import { useZoom } from "@hooks/useZoom"
+import { useCellLogic } from "@hooks/useCellLogic"
 import type { Viewport } from "@models/game-board"
-import { coordToKey } from "@utils/converter"
 import { CANVAS_WIDTH, CANVAS_HEIGHT, DEFAULT_VIEWPORT } from "@utils/config"
 import "@styles/components/game-board/GameBoard.scss"
 
 const GameBoard = () => {
-  const [liveCells, setLiveCells] = useState<Set<string>>(new Set<string>())
+  const { liveCells, toggleCell: handleCellClick, resetCells } = useCellLogic()
   const [viewport, setViewport] = useState<Viewport>(DEFAULT_VIEWPORT)
 
-  const handleCellClick = useCallback((cellX: number, cellY: number) => {
-    const key = coordToKey(cellX, cellY)
-
-    setLiveCells((prevCells) => {
-      const newCells = new Set(prevCells)
-      if (newCells.has(key)) newCells.delete(key)
-      else newCells.add(key)
-      return newCells
-    })
-  }, [])
-
   const panHandlers = usePan(viewport, setViewport)
-  const zoomHandlers = useZoomOnScroll(setViewport)
+  const zoomHandlers = useZoom(setViewport)
 
   const advanceGeneration = () => {
     console.log("Let's go forward")
@@ -38,14 +27,18 @@ const GameBoard = () => {
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
         {...panHandlers}
-        {...zoomHandlers}
+        onWheel={zoomHandlers.onWheel}
         onClickCell={handleCellClick}
       />
       <div>
         <ZoomControls
           currentCellSize={viewport.cellSize}
-          setViewport={setViewport}
+          handleZoomIn={zoomHandlers.handleZoomIn}
+          handleZoomOut={zoomHandlers.handleZoomOut}
         />
+        <button type="button" onClick={resetCells}>
+          Reset Cells
+        </button>
         <button type="button" onClick={advanceGeneration}>
           Fake generation
         </button>

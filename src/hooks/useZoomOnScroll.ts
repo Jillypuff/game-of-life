@@ -1,9 +1,10 @@
 import { useCallback } from "react"
 import { Viewport } from "@models/game-board"
-
-const MIN_ZOOM_SIZE = 5
-const MAX_ZOOM_SIZE = 50
-const ZOOM_STEP = 2
+import {
+  SCROLL_MIN_ZOOM_SIZE,
+  SCROLL_MAX_ZOOM_SIZE,
+  SCROLL_ZOOM_STEP,
+} from "@utils/config"
 
 export const useZoomOnScroll = (
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
@@ -18,9 +19,15 @@ export const useZoomOnScroll = (
         let newCellSize: number
 
         if (scrollDirection > 0) {
-          newCellSize = Math.max(MIN_ZOOM_SIZE, prevState.cellSize - ZOOM_STEP)
+          newCellSize = Math.max(
+            SCROLL_MIN_ZOOM_SIZE,
+            prevState.cellSize - SCROLL_ZOOM_STEP
+          )
         } else {
-          newCellSize = Math.min(MAX_ZOOM_SIZE, prevState.cellSize + ZOOM_STEP)
+          newCellSize = Math.min(
+            SCROLL_MAX_ZOOM_SIZE,
+            prevState.cellSize + SCROLL_ZOOM_STEP
+          )
         }
 
         return {

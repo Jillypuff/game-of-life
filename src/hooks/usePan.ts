@@ -1,10 +1,11 @@
 import { useRef, useCallback, PointerEvent } from "react"
 import { Viewport } from "@models/game-board"
-
-const MIN_OFFSET_X = -20
-const MAX_OFFSET_X = 120
-const MIN_OFFSET_Y = -20
-const MAX_OFFSET_Y = 120
+import {
+  MIN_OFFSET_X,
+  MAX_OFFSET_X,
+  MIN_OFFSET_Y,
+  MAX_OFFSET_Y,
+} from "@utils/config"
 
 interface PanHandlers {
   onPointerDown: (e: React.PointerEvent<HTMLCanvasElement>) => void

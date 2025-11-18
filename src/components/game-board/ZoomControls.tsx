@@ -1,14 +1,15 @@
 import { Viewport } from "@models/game-board"
+import {
+  BUTTON_MIN_ZOOM_SIZE,
+  BUTTON_MAX_ZOOM_SIZE,
+  BUTTON_ZOOM_STEP,
+} from "@utils/config"
 import "@styles/components/game-board/ZoomControls.scss"
 
 interface ZoomControlsProps {
   currentCellSize: number
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
 }
-
-const MIN_ZOOM_SIZE = 5
-const MAX_ZOOM_SIZE = 50
-const ZOOM_STEP = 5
 
 const ZoomControls: React.FC<ZoomControlsProps> = ({
   currentCellSize,
@@ -17,14 +18,20 @@ const ZoomControls: React.FC<ZoomControlsProps> = ({
   const handleZoomIn = () => {
     setViewport((prevState) => ({
       ...prevState,
-      cellSize: Math.min(MAX_ZOOM_SIZE, prevState.cellSize + ZOOM_STEP),
+      cellSize: Math.min(
+        BUTTON_MAX_ZOOM_SIZE,
+        prevState.cellSize + BUTTON_ZOOM_STEP
+      ),
     }))
   }
 
   const handleZoomOut = () => {
     setViewport((prevState) => ({
       ...prevState,
-      cellSize: Math.max(MIN_ZOOM_SIZE, prevState.cellSize - ZOOM_STEP),
+      cellSize: Math.max(
+        BUTTON_MIN_ZOOM_SIZE,
+        prevState.cellSize - BUTTON_ZOOM_STEP
+      ),
     }))
   }
 
@@ -34,7 +41,7 @@ const ZoomControls: React.FC<ZoomControlsProps> = ({
         className="zoom-button"
         onClick={handleZoomOut}
         type="button"
-        disabled={currentCellSize <= MIN_ZOOM_SIZE}
+        disabled={currentCellSize <= BUTTON_MIN_ZOOM_SIZE}
         aria-label="Zoom Out"
       >
         −
@@ -43,7 +50,7 @@ const ZoomControls: React.FC<ZoomControlsProps> = ({
         className="zoom-button"
         onClick={handleZoomIn}
         type="button"
-        disabled={currentCellSize >= MAX_ZOOM_SIZE}
+        disabled={currentCellSize >= BUTTON_MAX_ZOOM_SIZE}
         aria-label="Zoom In"
       >
         +

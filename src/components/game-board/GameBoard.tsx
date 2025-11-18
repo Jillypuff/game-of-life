@@ -4,9 +4,8 @@ import ZoomControls from "./ZoomControls"
 import { usePan } from "@hooks/usePan"
 import { useZoomOnScroll } from "@hooks/useZoomOnScroll"
 import type { Viewport } from "@models/game-board"
+import { coordToKey } from "@utils/converter"
 import "@styles/components/game-board/GameBoard.scss"
-
-const coordToKey = (x: number, y: number): string => `${x},${y}`
 
 const CANVAS_WIDTH = 800
 const CANVAS_HEIGHT = 600

@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react"
 import type { Viewport } from "@models/game-board"
+import { keyToCoord } from "@utils/converter"
 import "@styles/components/game-board/GameCanvas.scss"
 
 interface GameCanvasProps {
@@ -11,11 +12,6 @@ interface GameCanvasProps {
   onPointerMove: (e: React.PointerEvent<HTMLCanvasElement>) => void
   onPointerUp: (e: React.PointerEvent<HTMLCanvasElement>) => void
   onWheel: (e: React.WheelEvent<HTMLCanvasElement>) => void
-}
-
-const keyToCoord = (key: string): [number, number] => {
-  const [x, y] = key.split(",").map(Number)
-  return [x, y]
 }
 
 const GameCanvas: React.FC<GameCanvasProps> = ({

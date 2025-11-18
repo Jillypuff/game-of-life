@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import GameCanvas from "./GameCanvas"
 import ZoomControls from "./ZoomControls"
 import { usePan } from "@hooks/usePan"
@@ -9,15 +9,19 @@ import { CANVAS_WIDTH, CANVAS_HEIGHT, DEFAULT_VIEWPORT } from "@utils/config"
 import "@styles/components/game-board/GameBoard.scss"
 
 const GameBoard = () => {
-  const [liveCells, setLiveCells] = useState<Set<string>>(() => {
-    const initial = new Set<string>()
-    initial.add(coordToKey(50, 50))
-    initial.add(coordToKey(50, 51))
-    initial.add(coordToKey(50, 52))
-    return initial
-  })
-
+  const [liveCells, setLiveCells] = useState<Set<string>>(new Set<string>())
   const [viewport, setViewport] = useState<Viewport>(DEFAULT_VIEWPORT)
+
+  const handleCellClick = useCallback((cellX: number, cellY: number) => {
+    const key = coordToKey(cellX, cellY)
+
+    setLiveCells((prevCells) => {
+      const newCells = new Set(prevCells)
+      if (newCells.has(key)) newCells.delete(key)
+      else newCells.add(key)
+      return newCells
+    })
+  }, [])
 
   const panHandlers = usePan(viewport, setViewport)
   const zoomHandlers = useZoomOnScroll(setViewport)
@@ -35,6 +39,7 @@ const GameBoard = () => {
         height={CANVAS_HEIGHT}
         {...panHandlers}
         {...zoomHandlers}
+        onClickCell={handleCellClick}
       />
       <div>
         <ZoomControls

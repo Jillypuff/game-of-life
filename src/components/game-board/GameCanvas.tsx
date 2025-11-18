@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, MouseEvent } from "react"
 import type { Viewport } from "@models/game-board"
 import { keyToCoord } from "@utils/converter"
 import "@styles/components/game-board/GameCanvas.scss"
@@ -12,6 +12,7 @@ interface GameCanvasProps {
   onPointerMove: (e: React.PointerEvent<HTMLCanvasElement>) => void
   onPointerUp: (e: React.PointerEvent<HTMLCanvasElement>) => void
   onWheel: (e: React.WheelEvent<HTMLCanvasElement>) => void
+  onClickCell: (cellX: number, cellY: number) => void
 }
 
 const GameCanvas: React.FC<GameCanvasProps> = ({
@@ -23,9 +24,24 @@ const GameCanvas: React.FC<GameCanvasProps> = ({
   onPointerMove,
   onPointerUp,
   onWheel,
+  onClickCell,
 }: GameCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const { xOffset, yOffset, cellSize } = viewport
+
+  const handleCanvasClick = (e: MouseEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const rect = canvas.getBoundingClientRect()
+    const pixelX = e.clientX - rect.left
+    const pixelY = e.clientY - rect.top
+
+    const cellX = Math.floor(pixelX / viewport.cellSize + viewport.xOffset)
+    const cellY = Math.floor(pixelY / viewport.cellSize + viewport.yOffset)
+
+    onClickCell(cellX, cellY)
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -84,6 +100,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onWheel={onWheel}
+      onClick={handleCanvasClick}
     />
   )
 }

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import GameCanvas from "./GameCanvas"
-import ZoomControls from "./ZoomControls"
+import ZoomControls from "./controls/ZoomControls"
 import { usePan } from "@hooks/usePan"
 import { useZoom } from "@hooks/useZoom"
 import { useCellLogic } from "@hooks/useCellLogic"

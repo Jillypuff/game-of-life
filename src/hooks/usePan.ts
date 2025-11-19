@@ -5,19 +5,36 @@ import {
   MAX_OFFSET_X,
   MIN_OFFSET_Y,
   MAX_OFFSET_Y,
+  DRAG_THRESHOLD,
 } from "@utils/config"
+
+interface DragState {
+  isDragging: boolean
+  lastX: number
+  lastY: number
+  initialX: number
+  initialY: number
+}
 
 interface PanHandlers {
   onPointerDown: (e: React.PointerEvent<HTMLCanvasElement>) => void
   onPointerMove: (e: React.PointerEvent<HTMLCanvasElement>) => void
   onPointerUp: (e: React.PointerEvent<HTMLCanvasElement>) => void
+  getHasMoved: () => boolean
 }
 
 export const usePan = (
   viewport: Viewport,
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
 ): PanHandlers => {
-  const dragState = useRef({ isDragging: false, lastX: 0, lastY: 0 })
+  const dragState = useRef<DragState>({
+    isDragging: false,
+    lastX: 0,
+    lastY: 0,
+    initialX: 0,
+    initialY: 0,
+  })
+  const hasMovedRef = useRef(false)
 
   const clampOffset = (offset: number, axis: "x" | "y"): number => {
     const min = axis === "x" ? MIN_OFFSET_X : MIN_OFFSET_Y
@@ -31,6 +48,11 @@ export const usePan = (
     dragState.current.isDragging = true
     dragState.current.lastX = e.clientX
     dragState.current.lastY = e.clientY
+
+    hasMovedRef.current = false
+    dragState.current.initialX = e.clientX
+    dragState.current.initialY = e.clientY
+
     e.currentTarget.setPointerCapture(e.pointerId)
   }, [])
 
@@ -45,6 +67,13 @@ export const usePan = (
 
       const dCellX = -dx / cellSize
       const dCellY = -dy / cellSize
+
+      if (
+        Math.abs(e.clientX - dragState.current.initialX) > DRAG_THRESHOLD ||
+        Math.abs(e.clientY - dragState.current.initialY) > DRAG_THRESHOLD
+      ) {
+        hasMovedRef.current = true
+      }
 
       setViewport((prevViewport) => {
         const newX = prevViewport.xOffset + dCellX
@@ -72,5 +101,6 @@ export const usePan = (
     onPointerDown: handlePointerDown,
     onPointerMove: handlePointerMove,
     onPointerUp: handlePointerUp,
+    getHasMoved: () => hasMovedRef.current,
   }
 }

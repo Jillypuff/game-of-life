@@ -13,9 +13,10 @@ interface GameCanvasProps {
   onPointerUp: (e: React.PointerEvent<HTMLCanvasElement>) => void
   onWheel: (e: React.WheelEvent<HTMLCanvasElement>) => void
   onClickCell: (cellX: number, cellY: number) => void
+  getHasMoved: () => boolean
 }
 
-const GameCanvas: React.FC<GameCanvasProps> = ({
+const GameCanvas = ({
   liveCells,
   viewport,
   width,
@@ -25,6 +26,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({
   onPointerUp,
   onWheel,
   onClickCell,
+  getHasMoved,
 }: GameCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   useCanvasDrawing({
@@ -36,6 +38,8 @@ const GameCanvas: React.FC<GameCanvasProps> = ({
   })
 
   const handleCanvasClick = (e: MouseEvent<HTMLCanvasElement>) => {
+    if (getHasMoved()) return
+
     const canvas = canvasRef.current
     if (!canvas) return
 

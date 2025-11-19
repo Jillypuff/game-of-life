@@ -30,6 +30,7 @@ const GameBoard = () => {
         {...panHandlers}
         onWheel={zoomHandlers.onWheel}
         onClickCell={handleCellClick}
+        getHasMoved={panHandlers.getHasMoved}
       />
       <div>
         <ZoomControls

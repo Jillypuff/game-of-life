@@ -21,3 +21,5 @@ export const MIN_OFFSET_X = -20
 export const MAX_OFFSET_X = 120
 export const MIN_OFFSET_Y = -20
 export const MAX_OFFSET_Y = 120
+
+export const DRAG_THRESHOLD = 5

@@ -9,17 +9,19 @@ export const DEFAULT_VIEWPORT: Viewport = {
   cellSize: 10,
 }
 
-export const BUTTON_MIN_ZOOM_SIZE = 5
+export const BUTTON_MIN_ZOOM_SIZE = 1
 export const BUTTON_MAX_ZOOM_SIZE = 50
 export const BUTTON_ZOOM_STEP = 5
 
-export const SCROLL_MIN_ZOOM_SIZE = 5
+export const SCROLL_MIN_ZOOM_SIZE = 1
 export const SCROLL_MAX_ZOOM_SIZE = 50
 export const SCROLL_ZOOM_STEP = 1
 
-export const MIN_OFFSET_X = -20
-export const MAX_OFFSET_X = 120
-export const MIN_OFFSET_Y = -20
-export const MAX_OFFSET_Y = 120
+export const MIN_OFFSET_X = -100
+export const MAX_OFFSET_X = 100
+export const MIN_OFFSET_Y = -100
+export const MAX_OFFSET_Y = 100
 
 export const DRAG_THRESHOLD = 5
+
+export const DEFAULT_SPEED_MS = 40

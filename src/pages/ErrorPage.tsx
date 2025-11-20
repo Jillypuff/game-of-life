@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-// @Text
 const header = "⚠️ Error!"
 const content = "Something went wrong. Redirecting you back in 3 seconds..."
 

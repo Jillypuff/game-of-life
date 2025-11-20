@@ -7,6 +7,8 @@ import {
   BUTTON_MIN_ZOOM_SIZE,
   BUTTON_MAX_ZOOM_SIZE,
   BUTTON_ZOOM_STEP,
+  CANVAS_WIDTH,
+  CANVAS_HEIGHT,
 } from "@utils/config"
 
 interface ZoomHandlers {
@@ -18,24 +20,39 @@ interface ZoomHandlers {
 export const useZoom = (
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
 ): ZoomHandlers => {
+  const adjustOffset = (prev: Viewport, newCellSize: number): Viewport => {
+    const oldCellSize = prev.cellSize
+    const centerCellX = prev.xOffset + CANVAS_WIDTH / 2 / oldCellSize
+    const centerCellY = prev.yOffset + CANVAS_HEIGHT / 2 / oldCellSize
+    const newXOffset = centerCellX - CANVAS_WIDTH / 2 / newCellSize
+    const newYOffset = centerCellY - CANVAS_HEIGHT / 2 / newCellSize
+
+    return {
+      ...prev,
+      cellSize: newCellSize,
+      xOffset: newXOffset,
+      yOffset: newYOffset,
+    }
+  }
+
   const handleZoomIn = useCallback(() => {
-    setViewport((prevState) => ({
-      ...prevState,
-      cellSize: Math.min(
+    setViewport((prevState) => {
+      const newCellSize = Math.min(
         BUTTON_MAX_ZOOM_SIZE,
         prevState.cellSize + BUTTON_ZOOM_STEP
-      ),
-    }))
+      )
+      return adjustOffset(prevState, newCellSize)
+    })
   }, [setViewport])
 
   const handleZoomOut = useCallback(() => {
-    setViewport((prevState) => ({
-      ...prevState,
-      cellSize: Math.max(
+    setViewport((prevState) => {
+      const newCellSize = Math.max(
         BUTTON_MIN_ZOOM_SIZE,
         prevState.cellSize - BUTTON_ZOOM_STEP
-      ),
-    }))
+      )
+      return adjustOffset(prevState, newCellSize)
+    })
   }, [setViewport])
 
   const handleWheel = useCallback(

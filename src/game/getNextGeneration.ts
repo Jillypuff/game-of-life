@@ -15,7 +15,7 @@ export const getNextGeneration = (
       currentLiveCells,
       true
     )
-    newCandidates.forEach(candidateDeadCells.add, candidateDeadCells)
+    newCandidates.forEach((cell) => candidateDeadCells.add(cell))
     if (liveNeighborCount === 2 || liveNeighborCount === 3) {
       nextLiveCells.add(key)
     }

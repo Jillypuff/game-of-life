@@ -13,7 +13,8 @@ const GameBoard = () => {
     liveCells,
     toggleCell: handleCellClick,
     resetCells,
-    advanceGeneration,
+    toggleRunning,
+    isRunning,
   } = useGameEngine()
   const [viewport, setViewport] = useState<Viewport>(DEFAULT_VIEWPORT)
 
@@ -29,7 +30,7 @@ const GameBoard = () => {
         height={CANVAS_HEIGHT}
         {...panHandlers}
         onWheel={zoomHandlers.onWheel}
-        onClickCell={handleCellClick}
+        onClickCell={isRunning ? () => {} : handleCellClick}
         getHasMoved={panHandlers.getHasMoved}
       />
       <div>
@@ -38,11 +39,15 @@ const GameBoard = () => {
           handleZoomIn={zoomHandlers.handleZoomIn}
           handleZoomOut={zoomHandlers.handleZoomOut}
         />
+        <button
+          type="button"
+          onClick={toggleRunning}
+          disabled={!isRunning && liveCells.size === 0}
+        >
+          {isRunning ? "Pause" : "Run"}
+        </button>
         <button type="button" onClick={resetCells}>
           Reset Cells
-        </button>
-        <button type="button" onClick={advanceGeneration}>
-          Advance
         </button>
       </div>
     </div>

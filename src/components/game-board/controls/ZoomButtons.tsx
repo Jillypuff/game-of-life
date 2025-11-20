@@ -1,5 +1,5 @@
 import { BUTTON_MIN_ZOOM_SIZE, BUTTON_MAX_ZOOM_SIZE } from "@utils/config"
-import "@styles/components/game-board/ZoomControls.scss"
+import "@styles/components/game-board/controls/ZoomButtons.scss"
 
 interface ZoomControlsProps {
   currentCellSize: number
@@ -7,7 +7,7 @@ interface ZoomControlsProps {
   handleZoomOut: () => void
 }
 
-const ZoomControls: React.FC<ZoomControlsProps> = ({
+const ZoomControls = ({
   currentCellSize,
   handleZoomIn,
   handleZoomOut,

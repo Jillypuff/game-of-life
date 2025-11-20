@@ -24,4 +24,10 @@ export const MAX_OFFSET_Y = 100
 
 export const DRAG_THRESHOLD = 5
 
-export const DEFAULT_SPEED_MS = 40
+export const FASTEST_TIME_MS = 20
+export const SLOWEST_TIME_MS = 2000
+export const DEFAULT_SPEED_MS = 200
+
+export const SLIDER_FPS_MIN = 1
+export const SLIDER_FPS_MAX = 100
+export const SLIDER_FPS_STEP = 1

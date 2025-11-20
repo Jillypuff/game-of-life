@@ -19,14 +19,20 @@ export const useGameEngine = () => {
     })
   }, [])
 
-  const resetCells = () => {
+  const resetCells = useCallback(() => {
     setLiveCells(new Set<string>())
-  }
+    setIsRunning(false)
+  }, [])
 
   const advanceGeneration = useCallback(() => {
-    const nextCells = getNextGeneration(liveCells)
-    setLiveCells(nextCells)
-  }, [liveCells])
+    setLiveCells((currentCells) => {
+      if (currentCells.size === 0) {
+        setIsRunning(false)
+        return currentCells
+      }
+      return getNextGeneration(currentCells)
+    })
+  }, [])
 
   const toggleRunning = useCallback(() => {
     setIsRunning((state) => !state)

@@ -1,0 +1,74 @@
+@use "@styles/typography.scss" as t;
+
+.slider {
+  label {
+    font-family: t.$font-mono;
+    font-size: t.font-size(xs);
+    font-weight: t.font-weight(normal);
+    letter-spacing: t.letter-spacing(ultrawide);
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 260px;
+    height: 12px;
+    background: var(--bg-dark);
+    border: 2px solid var(--border);
+    border-radius: 0;
+    box-shadow: inset 0 0 4px var(--border-muted);
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      box-shadow: inset 0 0 6px var(--highlight), 0 0 6px var(--highlight);
+    }
+
+    &::-webkit-slider-runnable-track {
+      height: 12px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--bg),
+        var(--bg) 4px,
+        var(--bg-light) 4px,
+        var(--bg-light) 8px
+      );
+      border: 2px solid var(--border);
+      box-shadow: inset 0 0 4px var(--border-muted);
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      background: var(--highlight);
+      border: 2px solid var(--bg-dark);
+      box-shadow: 0 0 4px var(--highlight), inset 0 0 4px var(--bg-dark);
+      margin-top: -5px;
+    }
+
+    &::-moz-range-track {
+      height: 12px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--bg),
+        var(--bg) 4px,
+        var(--bg-light) 4px,
+        var(--bg-light) 8px
+      );
+      border: 2px solid var(--border);
+      box-shadow: inset 0 0 4px var(--border-muted);
+    }
+
+    &::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      background: var(--highlight);
+      border: 2px solid var(--bg-dark);
+      box-shadow: 0 0 4px var(--highlight), inset 0 0 4px var(--bg-dark);
+    }
+  }
+}

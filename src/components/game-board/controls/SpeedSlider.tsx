@@ -1,7 +1,6 @@
-// SpeedSlider.tsx (FIXED for FPS Control)
-
 import React from "react"
 import { SLIDER_FPS_MIN, SLIDER_FPS_MAX, SLIDER_FPS_STEP } from "@utils/config"
+import "@styles/components/game-board/controls/SpeedSlider.scss"
 
 interface SpeedSliderProps {
   currentSpeed: number
@@ -26,7 +25,7 @@ const SpeedSlider = ({ currentSpeed, onChange }: SpeedSliderProps) => {
   const fpsLabel = currentFPS.toFixed(0)
 
   return (
-    <div>
+    <div className="slider">
       <label htmlFor="game-speed">
         Speed ({fpsLabel} generations/sec)
         <br />

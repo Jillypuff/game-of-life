@@ -9,7 +9,6 @@ import {
   BUTTON_ZOOM_STEP,
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
-  DEFAULT_VIEWPORT,
   DEFAULT_CELL_SIZE,
 } from "@utils/config"
 

@@ -41,6 +41,7 @@ const GameBoard = () => {
         cellSize={viewport.cellSize}
         handleZoomIn={zoomHandlers.handleZoomIn}
         handleZoomOut={zoomHandlers.handleZoomOut}
+        resetZoom={zoomHandlers.resetZoom}
         resetCells={resetCells}
         toggleRunning={toggleRunning}
         setGameSpeed={setGameSpeed}

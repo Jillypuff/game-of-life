@@ -3,10 +3,20 @@ import { Viewport } from "@models/game-board"
 export const CANVAS_WIDTH = 800
 export const CANVAS_HEIGHT = 600
 
+export const DEFAULT_CELL_SIZE = 16
+export const MIN_OFFSET_X = -100
+export const MAX_OFFSET_X = 100
+export const MIN_OFFSET_Y = -100
+export const MAX_OFFSET_Y = 100
+
+const centerOffset = (canvasDim: number, cellSize: number) => {
+  return canvasDim / 2 / cellSize
+}
+
 export const DEFAULT_VIEWPORT: Viewport = {
-  xOffset: 40,
-  yOffset: 40,
-  cellSize: 10,
+  xOffset: centerOffset(CANVAS_WIDTH, DEFAULT_CELL_SIZE),
+  yOffset: centerOffset(CANVAS_HEIGHT, DEFAULT_CELL_SIZE),
+  cellSize: DEFAULT_CELL_SIZE,
 }
 
 export const BUTTON_MIN_ZOOM_SIZE = 1
@@ -16,11 +26,6 @@ export const BUTTON_ZOOM_STEP = 5
 export const SCROLL_MIN_ZOOM_SIZE = 1
 export const SCROLL_MAX_ZOOM_SIZE = 50
 export const SCROLL_ZOOM_STEP = 1
-
-export const MIN_OFFSET_X = -100
-export const MAX_OFFSET_X = 100
-export const MIN_OFFSET_Y = -100
-export const MAX_OFFSET_Y = 100
 
 export const DRAG_THRESHOLD = 5
 

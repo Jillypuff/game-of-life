@@ -1,6 +1,24 @@
-.zoom-button {
-  width: 30px;
-  height: 30px;
-  font-weight: "bold";
-  font-size: 18px;
+@use "@styles/typography.scss" as t;
+
+.zoom-button-container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+
+  button {
+    font-family: t.$font-mono;
+    font-weight: t.font-weight(normal);
+    font-size: t.font-size(sm);
+    color: var(--text);
+    background: linear-gradiant(var(--bg-dark), var(--bg));
+    border: 2px solid var(--border-muted);
+    box-shadow: inset 0 0 4px var(--border-muted);
+    width: auto;
+    min-width: 30px;
+    height: 30px;
+
+    &:hover {
+      border: 3px solid var(--border);
+    }
+  }
 }

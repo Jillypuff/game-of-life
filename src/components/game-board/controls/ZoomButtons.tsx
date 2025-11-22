@@ -5,17 +5,18 @@ interface ZoomControlsProps {
   currentCellSize: number
   handleZoomIn: () => void
   handleZoomOut: () => void
+  resetZoom: () => void
 }
 
 const ZoomControls = ({
   currentCellSize,
   handleZoomIn,
   handleZoomOut,
+  resetZoom,
 }: ZoomControlsProps) => {
   return (
-    <div>
+    <div className="zoom-button-container">
       <button
-        className="zoom-button"
         onClick={handleZoomOut}
         type="button"
         disabled={currentCellSize <= BUTTON_MIN_ZOOM_SIZE}
@@ -23,8 +24,10 @@ const ZoomControls = ({
       >
         −
       </button>
+      <button onClick={resetZoom} type="button" aria-label="Reset Zoom">
+        Reset zoom
+      </button>
       <button
-        className="zoom-button"
         onClick={handleZoomIn}
         type="button"
         disabled={currentCellSize >= BUTTON_MAX_ZOOM_SIZE}

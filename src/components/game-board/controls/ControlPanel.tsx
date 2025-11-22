@@ -5,6 +5,7 @@ interface ControlPanelProps {
   cellSize: number
   handleZoomIn: () => void
   handleZoomOut: () => void
+  resetZoom: () => void
   resetCells: () => void
   toggleRunning: () => void
   setGameSpeed: (speed: number) => void
@@ -17,6 +18,7 @@ const ControlPanel = ({
   cellSize,
   handleZoomIn,
   handleZoomOut,
+  resetZoom,
   resetCells,
   toggleRunning,
   setGameSpeed,
@@ -30,6 +32,7 @@ const ControlPanel = ({
         currentCellSize={cellSize}
         handleZoomIn={handleZoomIn}
         handleZoomOut={handleZoomOut}
+        resetZoom={resetZoom}
       />
       <button
         type="button"

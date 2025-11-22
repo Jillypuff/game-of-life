@@ -9,11 +9,14 @@ import {
   BUTTON_ZOOM_STEP,
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
+  DEFAULT_VIEWPORT,
+  DEFAULT_CELL_SIZE,
 } from "@utils/config"
 
 interface ZoomHandlers {
   handleZoomIn: () => void
   handleZoomOut: () => void
+  resetZoom: () => void
   onWheel: (e: WheelEvent<HTMLCanvasElement>) => void
 }
 
@@ -55,6 +58,15 @@ export const useZoom = (
     })
   }, [setViewport])
 
+  const resetZoom = useCallback(() => {
+    setViewport((prevState) => {
+      if (prevState.cellSize === DEFAULT_CELL_SIZE) {
+        return prevState
+      }
+      return adjustOffset(prevState, DEFAULT_CELL_SIZE)
+    })
+  }, [setViewport])
+
   const handleWheel = useCallback(
     (e: WheelEvent<HTMLCanvasElement>) => {
       e.preventDefault()
@@ -88,6 +100,7 @@ export const useZoom = (
   return {
     handleZoomIn,
     handleZoomOut,
+    resetZoom,
     onWheel: handleWheel,
   }
 }

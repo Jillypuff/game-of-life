@@ -22,12 +22,17 @@ interface ZoomHandlers {
 export const useZoom = (
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
 ): ZoomHandlers => {
-  const adjustOffset = (prev: Viewport, newCellSize: number): Viewport => {
+  const adjustOffset = (
+    prev: Viewport,
+    newCellSize: number,
+    anchorX: number = CANVAS_WIDTH / 2,
+    anchorY: number = CANVAS_HEIGHT / 2
+  ): Viewport => {
     const oldCellSize = prev.cellSize
-    const centerCellX = prev.xOffset + CANVAS_WIDTH / 2 / oldCellSize
-    const centerCellY = prev.yOffset + CANVAS_HEIGHT / 2 / oldCellSize
-    const newXOffset = centerCellX - CANVAS_WIDTH / 2 / newCellSize
-    const newYOffset = centerCellY - CANVAS_HEIGHT / 2 / newCellSize
+    const anchorCellX = prev.xOffset + anchorX / oldCellSize
+    const anchorCellY = prev.yOffset + anchorY / oldCellSize
+    const newXOffset = anchorCellX - anchorX / newCellSize
+    const newYOffset = anchorCellY - anchorY / newCellSize
 
     return {
       ...prev,
@@ -71,6 +76,9 @@ export const useZoom = (
       e.preventDefault()
 
       const scrollDirection = Math.sign(e.deltaY)
+      const rect = e.currentTarget.getBoundingClientRect()
+      const mouseX = e.clientX - rect.left
+      const mouseY = e.clientY - rect.top
 
       setViewport((prevState) => {
         let newCellSize: number
@@ -87,10 +95,11 @@ export const useZoom = (
           )
         }
 
-        return {
-          ...prevState,
-          cellSize: newCellSize,
+        if (newCellSize === prevState.cellSize) {
+          return prevState
         }
+
+        return adjustOffset(prevState, newCellSize, mouseX, mouseY)
       })
     },
     [setViewport]

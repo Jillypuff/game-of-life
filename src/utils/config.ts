@@ -25,7 +25,7 @@ export const BUTTON_ZOOM_STEP = 5
 
 export const SCROLL_MIN_ZOOM_SIZE = 1
 export const SCROLL_MAX_ZOOM_SIZE = 50
-export const SCROLL_ZOOM_STEP = 1
+export const SCROLL_ZOOM_STEP = 5
 
 export const DRAG_THRESHOLD = 5
 

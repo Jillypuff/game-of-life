@@ -1,4 +1,4 @@
-import { useRef, MouseEvent } from "react"
+import { useRef, useEffect, MouseEvent } from "react"
 import { useCanvasDrawing } from "@hooks/useCanvasDrawing"
 import type { Viewport } from "@models/game-board"
 import "@styles/components/game-board/GameCanvas.scss"
@@ -53,6 +53,19 @@ const GameCanvas = ({
     onClickCell(cellX, cellY)
   }
 
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const handler = (e: WheelEvent) => {
+      e.preventDefault()
+      onWheel(e as any)
+    }
+
+    canvas.addEventListener("wheel", handler, { passive: false })
+    return () => canvas.removeEventListener("wheel", handler)
+  }, [onWheel])
+
   return (
     <canvas
       className="game-board-canvas"
@@ -62,7 +75,6 @@ const GameCanvas = ({
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
-      onWheel={onWheel}
       onClick={handleCanvasClick}
     />
   )

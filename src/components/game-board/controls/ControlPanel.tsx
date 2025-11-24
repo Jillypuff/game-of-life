@@ -1,5 +1,6 @@
 import SpeedSlider from "./SpeedSlider"
 import ZoomControls from "./ZoomButtons"
+import PlaybackButtons from "./PlaybackButtons"
 import "@styles/components/game-board/controls/ControlPanel.scss"
 
 interface ControlPanelProps {
@@ -36,16 +37,14 @@ const ControlPanel = ({
           handleZoomOut={handleZoomOut}
           resetZoom={resetZoom}
         />
-        <button
-          type="button"
-          onClick={toggleRunning}
-          disabled={!isRunning && liveCellsSize === 0}
-        >
-          {isRunning ? "Pause" : "Run"}
-        </button>
         <button type="button" onClick={resetCells}>
           Reset Cells
         </button>
+        <PlaybackButtons
+          toggleRunning={toggleRunning}
+          isRunning={isRunning}
+          liveCellSize={liveCellsSize}
+        />
         <SpeedSlider currentSpeed={speed} onChange={setGameSpeed} />
       </div>
     </div>

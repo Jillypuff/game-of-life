@@ -24,19 +24,18 @@ const GameBoard = () => {
   const zoomHandlers = useZoom(setViewport)
 
   return (
-    <div>
-      <div>
-        <GameCanvas
-          liveCells={liveCells}
-          viewport={viewport}
-          width={CANVAS_WIDTH}
-          height={CANVAS_HEIGHT}
-          {...panHandlers}
-          onWheel={zoomHandlers.onWheel}
-          onClickCell={isRunning ? () => {} : handleCellClick}
-          getHasMoved={panHandlers.getHasMoved}
-        />
-      </div>
+    <div className="game-board-container">
+      <GameCanvas
+        liveCells={liveCells}
+        viewport={viewport}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+        {...panHandlers}
+        onWheel={zoomHandlers.onWheel}
+        onClickCell={isRunning ? () => {} : handleCellClick}
+        getHasMoved={panHandlers.getHasMoved}
+      />
+      onClickCell
       <ControlPanel
         cellSize={viewport.cellSize}
         handleZoomIn={zoomHandlers.handleZoomIn}

@@ -35,7 +35,6 @@ const GameBoard = () => {
         onClickCell={isRunning ? () => {} : handleCellClick}
         getHasMoved={panHandlers.getHasMoved}
       />
-      onClickCell
       <ControlPanel
         cellSize={viewport.cellSize}
         handleZoomIn={zoomHandlers.handleZoomIn}

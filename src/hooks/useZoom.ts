@@ -1,5 +1,6 @@
 import { useCallback, WheelEvent } from "react"
 import { Viewport } from "@models/game-board"
+import { getZoomAdjustedViewport } from "@utils/viewport"
 import {
   SCROLL_MIN_ZOOM_SIZE,
   SCROLL_MAX_ZOOM_SIZE,
@@ -10,6 +11,10 @@ import {
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
   DEFAULT_CELL_SIZE,
+  MIN_OFFSET_X,
+  MAX_OFFSET_X,
+  MIN_OFFSET_Y,
+  MAX_OFFSET_Y,
 } from "@utils/config"
 
 interface ZoomHandlers {
@@ -22,33 +27,13 @@ interface ZoomHandlers {
 export const useZoom = (
   setViewport: React.Dispatch<React.SetStateAction<Viewport>>
 ): ZoomHandlers => {
-  const adjustOffset = (
-    prev: Viewport,
-    newCellSize: number,
-    anchorX: number = CANVAS_WIDTH / 2,
-    anchorY: number = CANVAS_HEIGHT / 2
-  ): Viewport => {
-    const oldCellSize = prev.cellSize
-    const anchorCellX = prev.xOffset + anchorX / oldCellSize
-    const anchorCellY = prev.yOffset + anchorY / oldCellSize
-    const newXOffset = anchorCellX - anchorX / newCellSize
-    const newYOffset = anchorCellY - anchorY / newCellSize
-
-    return {
-      ...prev,
-      cellSize: newCellSize,
-      xOffset: newXOffset,
-      yOffset: newYOffset,
-    }
-  }
-
   const handleZoomIn = useCallback(() => {
     setViewport((prevState) => {
       const newCellSize = Math.min(
         BUTTON_MAX_ZOOM_SIZE,
         prevState.cellSize + BUTTON_ZOOM_STEP
       )
-      return adjustOffset(prevState, newCellSize)
+      return getZoomAdjustedViewport(prevState, newCellSize)
     })
   }, [setViewport])
 
@@ -58,7 +43,7 @@ export const useZoom = (
         BUTTON_MIN_ZOOM_SIZE,
         prevState.cellSize - BUTTON_ZOOM_STEP
       )
-      return adjustOffset(prevState, newCellSize)
+      return getZoomAdjustedViewport(prevState, newCellSize)
     })
   }, [setViewport])
 
@@ -67,7 +52,7 @@ export const useZoom = (
       if (prevState.cellSize === DEFAULT_CELL_SIZE) {
         return prevState
       }
-      return adjustOffset(prevState, DEFAULT_CELL_SIZE)
+      return getZoomAdjustedViewport(prevState, DEFAULT_CELL_SIZE)
     })
   }, [setViewport])
 
@@ -99,7 +84,7 @@ export const useZoom = (
           return prevState
         }
 
-        return adjustOffset(prevState, newCellSize, mouseX, mouseY)
+        return getZoomAdjustedViewport(prevState, newCellSize, mouseX, mouseY)
       })
     },
     [setViewport]

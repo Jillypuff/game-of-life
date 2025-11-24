@@ -1,6 +1,9 @@
 import { useRef, useCallback, PointerEvent } from "react"
 import { Viewport } from "@models/game-board"
+import { clampOffset } from "@utils/viewport"
 import {
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
   MIN_OFFSET_X,
   MAX_OFFSET_X,
   MIN_OFFSET_Y,
@@ -36,13 +39,8 @@ export const usePan = (
   })
   const hasMovedRef = useRef(false)
 
-  const clampOffset = (offset: number, axis: "x" | "y"): number => {
-    const min = axis === "x" ? MIN_OFFSET_X : MIN_OFFSET_Y
-    const max = axis === "x" ? MAX_OFFSET_X : MAX_OFFSET_Y
-    return Math.max(min, Math.min(max, offset))
-  }
-
   const handlePointerDown = useCallback((e: PointerEvent<HTMLElement>) => {
+    e.preventDefault()
     if (e.button !== 0) return
 
     dragState.current.isDragging = true
@@ -64,10 +62,8 @@ export const usePan = (
 
       const dx = e.clientX - dragState.current.lastX
       const dy = e.clientY - dragState.current.lastY
-
       const dCellX = -dx / cellSize
       const dCellY = -dy / cellSize
-
       if (
         Math.abs(e.clientX - dragState.current.initialX) > DRAG_THRESHOLD ||
         Math.abs(e.clientY - dragState.current.initialY) > DRAG_THRESHOLD
@@ -81,8 +77,8 @@ export const usePan = (
 
         return {
           ...prevViewport,
-          xOffset: clampOffset(newX, "x"),
-          yOffset: clampOffset(newY, "y"),
+          xOffset: clampOffset(newX, "x", cellSize),
+          yOffset: clampOffset(newY, "y", cellSize),
         }
       })
 

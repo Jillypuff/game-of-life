@@ -44,9 +44,12 @@ const GameCanvas = ({
     if (!canvas) return
 
     const rect = canvas.getBoundingClientRect()
-    const pixelX = e.clientX - rect.left
-    const pixelY = e.clientY - rect.top
-
+    const scaleX = canvas.width / rect.width
+    const scaleY = canvas.height / rect.height
+    const mouseX_CSS = e.clientX - rect.left
+    const mouseY_CSS = e.clientY - rect.top
+    const pixelX = mouseX_CSS * scaleX
+    const pixelY = mouseY_CSS * scaleY
     const cellX = Math.floor(pixelX / viewport.cellSize + viewport.xOffset)
     const cellY = Math.floor(pixelY / viewport.cellSize + viewport.yOffset)
 

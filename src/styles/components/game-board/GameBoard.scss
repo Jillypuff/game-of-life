@@ -3,3 +3,14 @@
   flex-direction: column;
   box-shadow: 5px 5px 10px var(--bg-dark);
 }
+
+.game-board-container-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.cell-panel-container {
+  width: 100%;
+  background-color: var(--bg-light);
+  border-top-right-radius: 1rem;
+}

@@ -8,7 +8,6 @@ interface ControlPanelProps {
   handleZoomIn: () => void
   handleZoomOut: () => void
   resetZoom: () => void
-  resetCells: () => void
   toggleRunning: () => void
   setGameSpeed: (speed: number) => void
   isRunning: boolean
@@ -21,7 +20,6 @@ const ControlPanel = ({
   handleZoomIn,
   handleZoomOut,
   resetZoom,
-  resetCells,
   toggleRunning,
   setGameSpeed,
   isRunning,
@@ -37,9 +35,6 @@ const ControlPanel = ({
           handleZoomOut={handleZoomOut}
           resetZoom={resetZoom}
         />
-        <button type="button" onClick={resetCells}>
-          Reset Cells
-        </button>
         <PlaybackButtons
           toggleRunning={toggleRunning}
           isRunning={isRunning}

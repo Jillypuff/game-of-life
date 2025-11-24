@@ -8,13 +8,7 @@ import {
   BUTTON_MIN_ZOOM_SIZE,
   BUTTON_MAX_ZOOM_SIZE,
   BUTTON_ZOOM_STEP,
-  CANVAS_WIDTH,
-  CANVAS_HEIGHT,
   DEFAULT_CELL_SIZE,
-  MIN_OFFSET_X,
-  MAX_OFFSET_X,
-  MIN_OFFSET_Y,
-  MAX_OFFSET_Y,
 } from "@utils/config"
 
 interface ZoomHandlers {

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import GameCanvas from "./GameCanvas"
 import ControlPanel from "./controls/ControlPanel"
+import CellPanel from "./cell-panel/CellPanel"
 import { usePan } from "@hooks/usePan"
 import { useZoom } from "@hooks/useZoom"
 import { useGameEngine } from "@hooks/useGameEngine"
@@ -11,7 +12,7 @@ import "@styles/components/game-board/GameBoard.scss"
 const GameBoard = () => {
   const {
     liveCells,
-    toggleCell: handleCellClick,
+    toggleCell,
     resetCells,
     toggleRunning,
     setGameSpeed,
@@ -25,22 +26,26 @@ const GameBoard = () => {
 
   return (
     <div className="game-board-container">
-      <GameCanvas
-        liveCells={liveCells}
-        viewport={viewport}
-        width={CANVAS_WIDTH}
-        height={CANVAS_HEIGHT}
-        {...panHandlers}
-        onWheel={zoomHandlers.onWheel}
-        onClickCell={isRunning ? () => {} : handleCellClick}
-        getHasMoved={panHandlers.getHasMoved}
-      />
+      <div className="game-board-container-row">
+        <GameCanvas
+          liveCells={liveCells}
+          viewport={viewport}
+          width={CANVAS_WIDTH}
+          height={CANVAS_HEIGHT}
+          {...panHandlers}
+          onWheel={zoomHandlers.onWheel}
+          toggleCell={isRunning ? () => {} : toggleCell}
+          getHasMoved={panHandlers.getHasMoved}
+        />
+        <div className="cell-panel-container">
+          <CellPanel resetCells={resetCells} isRunning={isRunning} />
+        </div>
+      </div>
       <ControlPanel
         cellSize={viewport.cellSize}
         handleZoomIn={zoomHandlers.handleZoomIn}
         handleZoomOut={zoomHandlers.handleZoomOut}
         resetZoom={zoomHandlers.resetZoom}
-        resetCells={resetCells}
         toggleRunning={toggleRunning}
         setGameSpeed={setGameSpeed}
         isRunning={isRunning}

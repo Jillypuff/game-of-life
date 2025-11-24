@@ -1,15 +1,7 @@
 import { useRef, useCallback, PointerEvent } from "react"
 import { Viewport } from "@models/game-board"
 import { clampOffset } from "@utils/viewport"
-import {
-  CANVAS_HEIGHT,
-  CANVAS_WIDTH,
-  MIN_OFFSET_X,
-  MAX_OFFSET_X,
-  MIN_OFFSET_Y,
-  MAX_OFFSET_Y,
-  DRAG_THRESHOLD,
-} from "@utils/config"
+import { DRAG_THRESHOLD } from "@utils/config"
 
 interface DragState {
   isDragging: boolean

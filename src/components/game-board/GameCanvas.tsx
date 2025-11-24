@@ -12,7 +12,7 @@ interface GameCanvasProps {
   onPointerMove: (e: React.PointerEvent<HTMLCanvasElement>) => void
   onPointerUp: (e: React.PointerEvent<HTMLCanvasElement>) => void
   onWheel: (e: React.WheelEvent<HTMLCanvasElement>) => void
-  onClickCell: (cellX: number, cellY: number) => void
+  toggleCell: (cellX: number, cellY: number) => void
   getHasMoved: () => boolean
 }
 
@@ -25,7 +25,7 @@ const GameCanvas = ({
   onPointerMove,
   onPointerUp,
   onWheel,
-  onClickCell,
+  toggleCell,
   getHasMoved,
 }: GameCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -53,7 +53,7 @@ const GameCanvas = ({
     const cellX = Math.floor(pixelX / viewport.cellSize + viewport.xOffset)
     const cellY = Math.floor(pixelY / viewport.cellSize + viewport.yOffset)
 
-    onClickCell(cellX, cellY)
+    toggleCell(cellX, cellY)
   }
 
   useEffect(() => {
